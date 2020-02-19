@@ -1,0 +1,8 @@
+﻿  Application.cpp
+  Helper.cpp
+C:\dev\ComputerGraphics\ChallengeOne\src\Helper.cpp(49,16): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\dev\ComputerGraphics\ChallengeOne\src\Helper.cpp(49,13): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\dev\ComputerGraphics\ChallengeOne\src\Helper.cpp(62,9): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\dev\ComputerGraphics\ChallengeOne\src\Helper.cpp(62,31): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+  ChallengeOne.vcxproj -> C:\dev\ComputerGraphics\bin\Win32\Debug\ChallengeOne.exe
