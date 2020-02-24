@@ -1,1 +1,8 @@
+# Visual Studio dependencies
 bin/
+.vs/
+.vscode/
+
+# Binaries
+*.exe
+*.obj
