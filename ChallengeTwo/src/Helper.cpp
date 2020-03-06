@@ -8,7 +8,8 @@ Helper::~Helper()
 {
 }
 
-void Helper::setup(int displayWidth, int displayHeight) {
+void Helper::setup(GLFWwindow* window, int displayWidth, int displayHeight) {
+	
 	/*
 	* Specifies the part of the window to which OpenGL will
 	* draw (in pixels), convert from normalised to pixels.
@@ -36,9 +37,9 @@ void Helper::setup(int displayWidth, int displayHeight) {
 	glLoadIdentity();
 }
 
-void Helper::drawPoint(GLint pointVertex[]) {
+void Helper::drawPoint(GLint pointVertex[], int size) {
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glPointSize(1);
+	glPointSize(size);
 	glVertexPointer(2, GL_INT, 0, pointVertex);
 	glDrawArrays(GL_POINTS, 0, 1);
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -94,4 +95,40 @@ void Helper::drawBresenhamsLine(int x0, int y0, int xEnd, int yEnd, int displayW
 		glColor3f(1.0, 1.0, 1.0);
 	}
 	glFlush();
+}
+
+void Helper::moveQuadToRight(float vertices[]) {
+	vertices[0] += 1;
+	vertices[3] += 1;
+	vertices[6] += 1;
+	vertices[9] += 1;
+}
+
+void Helper::moveQuadToLeft(float vertices[]) {
+	vertices[0] -= 1;
+	vertices[3] -= 1;
+	vertices[6] -= 1;
+	vertices[9] -= 1;
+}
+
+void Helper::scaleQuadUpper(float vertices[]) {
+	vertices[0] -= 1;
+	vertices[1] += 1;
+	vertices[3] += 1;
+	vertices[4] += 1;
+	vertices[6] += 1;
+	vertices[7] -= 1;
+	vertices[9] -= 1;
+	vertices[10] -= 1;
+}
+
+void Helper::scaleQuadDown(float vertices[]) {
+	vertices[0] += 1;
+	vertices[1] -= 1;
+	vertices[3] -= 1;
+	vertices[4] -= 1;
+	vertices[6] -= 1;
+	vertices[7] += 1;
+	vertices[9] += 1;
+	vertices[10] += 1;
 }

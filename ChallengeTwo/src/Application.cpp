@@ -2,6 +2,8 @@
 #include<GLFW/glfw3.h>
 
 #include<iostream>
+#include <math.h>
+
 #include "Helper.h"
 
 #define SCREEN_WIDTH 640
@@ -9,46 +11,92 @@
 
 #define LOG(x) std::cout << x << std::endl
 
-int main(void) {
-	GLFWwindow* window;
-	
-	/* Initialize the library */
-	if (!glfwInit())
-		return -1;
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+float vertices[]
+{
+    SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3 * 2, 0.0,
+    SCREEN_WIDTH / 3 * 2, SCREEN_HEIGHT / 3 * 2, 0.0,
+    SCREEN_WIDTH / 3 * 2, SCREEN_HEIGHT / 3, 0.0,
+    SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3, 0.0
+};
+int main(void)
+{
+    GLFWwindow* window;
 
-	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Challenge Two", NULL, NULL);
-	if (!window) {
-		glfwTerminate();
-		return -1;
-	}
+    // Initialize the library
+    if (!glfwInit())
+    {
+        return -1;
+    }
 
-	/* Make the windows's context current */
-	glfwMakeContextCurrent(window);
+    // Create a windowed mode window and its OpenGL context
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Challenge Two", NULL, NULL);
 
-	glewInit();
+    int screenWidth, screenHeight;
+    glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
 
-	LOG(glGetString(GL_VERSION));
-	LOG(Helper().getTest());
+    if (!window)
+    {
+        glfwTerminate();
+        return -1;
+    }
 
-	while (!glfwWindowShouldClose(window))
-	{
-		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
+    // Make the window's context current
+    glfwMakeContextCurrent(window);
+    glfwSetKeyCallback(window, keyCallback);
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
 
-		glBegin(GL_TRIANGLES);
-		glVertex2f(-0.5f, -0.5f);
-		glVertex2f(0.0f, 0.5f);
-		glVertex2f(0.5f, -0.5f);
-		glEnd();
+    Helper helper = Helper();
 
-		/* Swap front and back buffers */
-		glfwSwapBuffers(window);
+    helper.setup(window, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		/* Poll for and process events*/
-		glfwPollEvents();
-	}
+    // Loop until the user closes the window
+    while (!glfwWindowShouldClose(window))
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
 
-	glfwTerminate();
-	return 0;
+        // Render OpenGL here
+        helper.drawQuad(vertices);
+        // Swap front and back buffers
+        glfwSwapBuffers(window);
+
+        // Poll for and process events
+        glfwPollEvents();
+    }
+
+    glfwTerminate();
+
+    return 0;
+}
+
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    LOG(key);
+
+    // actions are GLFW_PRESS, GLFW_RELEASE or GLFW_REPEAT
+    if (key == GLFW_KEY_SPACE && action == GLFW_REPEAT)
+    {
+        LOG("Space Key Pressed");
+    }
+    if (key == GLFW_KEY_RIGHT)
+    {
+        Helper().moveQuadToRight(vertices);
+        LOG("Move to right");
+    }
+    if (key == GLFW_KEY_LEFT)
+    {
+        Helper().moveQuadToLeft(vertices);
+        LOG("Move to left");
+    }
+    if (key == GLFW_KEY_UP)
+    {
+        Helper().scaleQuadUpper(vertices);
+        LOG("Scale Upper");
+    }
+    if (key == GLFW_KEY_DOWN)
+    {
+        Helper().scaleQuadDown(vertices);
+        LOG("Scale Down");
+    }
 }
