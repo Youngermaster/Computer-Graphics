@@ -1,0 +1,8 @@
+# Unity unnecesary dependencies
+Temp/
+.DS_Store
+.bin
+.vs/
+
+# Unity folder build
+Build/

@@ -235,38 +235,4 @@ public class EnemyController : MonoBehaviour {
         get; set;
     }
 
-} // class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
